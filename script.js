@@ -63,7 +63,7 @@ const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (e) {
   //note: BoundedClientRect is relative with the current visible ViewPort
-  const s1cord = section1.getBoundingClientRect(); //target loc
+  // const s1cord = section1.getBoundingClientRect(); //target loc
   // console.log('current scroll x , y =', window.pageXOffset, window.pageYOffset);
   //THis will keep trace of how much you have been scrolled
   // window.scrollTo(
@@ -76,30 +76,26 @@ btnScrollTo.addEventListener('click', function (e) {
   //   top: s1cord.top + window.pageYOffset,
   //   behavior: 'smooth',
   // });
-
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-const randomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+////Most important tabbed COmponents
 
-const generateNum = () => `rgb(${randomNumber(0, 255)},${randomNumber(0, 255)},
-${randomNumber(0, 255)})`;
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
 
-//Entire Navigation Bar(GrandPa)
-document.querySelector('.nav').addEventListener('click', function (e) {
-  this.style.backgroundColor = generateNum();
-  console.log(e.target);
-});
+tabContainer.addEventListener('click', function (e) {
+  //Activated
+  const clicked = e.target.closest('.operations__tab');
+  if (!clicked) return;
 
-//Naviagation Links All(Pa)
-document.querySelector('.nav__links').addEventListener('click', function (e) {
-  this.style.backgroundColor = generateNum();
-  console.log(e.target);
-});
+  //Remove Active
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabContent.forEach(c => c.classList.remove('operations__content--active'));
+  clicked.classList.add('operations__tab--active');
 
-//Indiviaual Links(Beta)
-document.querySelector('.nav__item').addEventListener('click', function (e) {
-  this.style.backgroundColor = generateNum();
-  console.log(e.target);
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
