@@ -79,3 +79,27 @@ btnScrollTo.addEventListener('click', function (e) {
 
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+const randomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const generateNum = () => `rgb(${randomNumber(0, 255)},${randomNumber(0, 255)},
+${randomNumber(0, 255)})`;
+
+//Entire Navigation Bar(GrandPa)
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = generateNum();
+  console.log(e.target);
+});
+
+//Naviagation Links All(Pa)
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = generateNum();
+  console.log(e.target);
+});
+
+//Indiviaual Links(Beta)
+document.querySelector('.nav__item').addEventListener('click', function (e) {
+  this.style.backgroundColor = generateNum();
+  console.log(e.target);
+});
