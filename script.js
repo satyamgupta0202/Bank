@@ -121,12 +121,44 @@ const nav = document.querySelector('.nav');
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-//Sticky Navigation
+// //Sticky Navigation
 
-const initialCord = section1.getBoundingClientRect();
-console.log(initialCord);
+// const initialCord = section1.getBoundingClientRect();
+// console.log(initialCord);
 
-window.addEventListener('scroll', function () {
-  if (window.scrollY > initialCord.top) nav.classList.add('sticky');
+// window.addEventListener('scroll', function () {
+//   if (window.scrollY > initialCord.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+// const options = {
+//   //object
+//   root: null, //it is the target section in view Port reference
+//   threshold: [0, 0.2], //whn section is scrolled 10%  jab section 1 10% +-
+// };
+
+// const call = function (entry, observer) {
+//   //entry=>involves INFO,observer
+//   //callback function
+//   entry.forEach(e => {
+//     console.log(e.target);
+//   });
+// };
+// const observer = new IntersectionObserver(call, options);
+// observer.observe(section1);
+
+//const header = document.querySelector('header');
+
+const option = {
+  target: null,
+  threshold: 0,
+};
+
+const call = function (entries, headerObserver) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
-});
+};
+
+const headerObserver = new IntersectionObserver(call, option);
+headerObserver.observe(header);
