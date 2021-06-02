@@ -5,6 +5,8 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const section1 = document.querySelector('#section--1');
+const header = document.querySelector('.header');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -34,7 +36,7 @@ document.addEventListener('keydown', function (e) {
 // /// Selecting Elements
 
 //Creating the Element and Inserting it at the same time
-const header = document.querySelector('.header');
+
 console.log(header);
 const message = document.createElement('div');
 message.classList.add('cookie-message');
@@ -59,7 +61,6 @@ message.style.height =
 ///Smooth Scrolling
 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (e) {
   //note: BoundedClientRect is relative with the current visible ViewPort
@@ -117,28 +118,15 @@ const handleHover = function (e) {
 };
 
 const nav = document.querySelector('.nav');
-
 nav.addEventListener('mouseover', handleHover.bind(0.5));
-// if (e.target.classList.contains('nav__link')) {
-//   const link = e.target; //to be dark
-//   const sibling = link.closest('.nav').querySelectorAll('.nav__link');
-//   console.log(sibling);
-//   const logo = link.closest('.nav').querySelector('img');
-//   sibling.forEach(el => {
-//     if (el !== link) el.style.opacity = 0.5;
-//   });
-//   logo.style.opacity = 0.5;
-// }
-//console.log('Bete');
-
 nav.addEventListener('mouseout', handleHover.bind(1));
-// if (e.target.classList.contains('nav__link')) {
-//   const link = e.target; //to be dark
-//   const sibling = link.closest('.nav').querySelectorAll('.nav__link');
-//   console.log(sibling);
-//   const logo = link.closest('.nav').querySelector('img');
-//   sibling.forEach(el => {
-//     if (el !== link) el.style.opacity = 1;
-//   });
-//   logo.style.opacity = 1;
-// }
+
+//Sticky Navigation
+
+const initialCord = section1.getBoundingClientRect();
+console.log(initialCord);
+
+window.addEventListener('scroll', function () {
+  if (window.scrollY > initialCord.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
