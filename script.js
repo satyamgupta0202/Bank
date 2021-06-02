@@ -99,3 +99,46 @@ tabContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+//Navigation_Bar Animations
+
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target; //to be dark
+    const sibling = link.closest('.nav').querySelectorAll('.nav__link');
+    console.log(sibling);
+    const logo = link.closest('.nav').querySelector('img');
+
+    sibling.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+const nav = document.querySelector('.nav');
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+// if (e.target.classList.contains('nav__link')) {
+//   const link = e.target; //to be dark
+//   const sibling = link.closest('.nav').querySelectorAll('.nav__link');
+//   console.log(sibling);
+//   const logo = link.closest('.nav').querySelector('img');
+//   sibling.forEach(el => {
+//     if (el !== link) el.style.opacity = 0.5;
+//   });
+//   logo.style.opacity = 0.5;
+// }
+//console.log('Bete');
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+// if (e.target.classList.contains('nav__link')) {
+//   const link = e.target; //to be dark
+//   const sibling = link.closest('.nav').querySelectorAll('.nav__link');
+//   console.log(sibling);
+//   const logo = link.closest('.nav').querySelector('img');
+//   sibling.forEach(el => {
+//     if (el !== link) el.style.opacity = 1;
+//   });
+//   logo.style.opacity = 1;
+// }
