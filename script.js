@@ -21,9 +21,6 @@ const closeModal = function () {
 
 btnsOpenModal.forEach(button => button.addEventListener('click', openModal));
 
-// for (let i = 0; i < btnsOpenModal.length; i++)
-//   btnsOpenModal[i].addEventListener('click', openModal);
-
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
@@ -33,11 +30,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// /// Selecting Elements
-
-//Creating the Element and Inserting it at the same time
-
-console.log(header);
 const message = document.createElement('div');
 message.classList.add('cookie-message');
 message.innerHTML = ` We use it to improve the Functionlity of the page <button class
@@ -63,20 +55,6 @@ message.style.height =
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 
 btnScrollTo.addEventListener('click', function (e) {
-  //note: BoundedClientRect is relative with the current visible ViewPort
-  // const s1cord = section1.getBoundingClientRect(); //target loc
-  // console.log('current scroll x , y =', window.pageXOffset, window.pageYOffset);
-  //THis will keep trace of how much you have been scrolled
-  // window.scrollTo(
-  //   s1cord.left + window.pageXOffset,
-  //   s1cord.top + window.pageYOffset
-  // );
-
-  // window.scrollTo({
-  //   left: s1cord.left + window.pageXOffset,
-  //   top: s1cord.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // });
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
@@ -107,7 +85,7 @@ const handleHover = function (e) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target; //to be dark
     const sibling = link.closest('.nav').querySelectorAll('.nav__link');
-    console.log(sibling);
+    //console.log(sibling);
     const logo = link.closest('.nav').querySelector('img');
 
     sibling.forEach(el => {
@@ -121,34 +99,7 @@ const nav = document.querySelector('.nav');
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-// //Sticky Navigation
-
-// const initialCord = section1.getBoundingClientRect();
-// console.log(initialCord);
-
-// window.addEventListener('scroll', function () {
-//   if (window.scrollY > initialCord.top) nav.classList.add('sticky');
-//   else nav.classList.remove('sticky');
-// });
-
-// const options = {
-//   //object
-//   root: null, //it is the target section in view Port reference
-//   threshold: [0, 0.2], //whn section is scrolled 10%  jab section 1 10% +-
-// };
-
-// const call = function (entry, observer) {
-//   //entry=>involves INFO,observer
-//   //callback function
-//   entry.forEach(e => {
-//     console.log(e.target);
-//   });
-// };
-// const observer = new IntersectionObserver(call, options);
-// observer.observe(section1);
-
-//const header = document.querySelector('header');
-
+//Sticky nav
 const option = {
   target: null,
   threshold: 0,
@@ -162,3 +113,29 @@ const call = function (entries, headerObserver) {
 
 const headerObserver = new IntersectionObserver(call, option);
 headerObserver.observe(header);
+
+/////////Reveal Sections///////////
+
+const allSections = document.querySelectorAll('.section');
+console.log(allSections);
+
+const options = {
+  target: null,
+  threshold: 0.15,
+};
+
+const revealSection = function (entries, Observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove('section--hidden');
+  Observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, options);
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
