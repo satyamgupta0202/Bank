@@ -20,7 +20,6 @@ const closeModal = function () {
 };
 
 btnsOpenModal.forEach(button => button.addEventListener('click', openModal));
-
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
@@ -117,7 +116,7 @@ headerObserver.observe(header);
 /////////Reveal Sections///////////
 
 const allSections = document.querySelectorAll('.section');
-console.log(allSections);
+//console.log(allSections);
 
 const options = {
   target: null,
@@ -126,7 +125,8 @@ const options = {
 
 const revealSection = function (entries, Observer) {
   const [entry] = entries;
-  console.log(entry);
+
+  //console.log(entry);
   if (!entry.isIntersecting) return;
 
   entry.target.classList.remove('section--hidden');
@@ -139,3 +139,26 @@ allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
 });
+
+///// lazt image-loading
+const imageTarget = document.querySelectorAll('img[data-src]');
+const optionss = {
+  target: null,
+  threshold: 0,
+  rootMargin: '200px',
+};
+
+const loadImg = function (entries, imgObserver) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove('lazy-img');
+  entry.target.addEventListener('load', function () {
+    entry.target.src = entry.target.dataset.src;
+  });
+  console.log(entry.target);
+  imgObserver.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, optionss);
+imageTarget.forEach(img => imgObserver.observe(img));
